@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+## Redux Toolkit
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<b>yarn add react-redux @reduxjs/toolkit </b>
 
-## Available Scripts
+## Basic Setup
 
-In the project directory, you can run:
+**Now we need to setup the redux in our project so that the entire application can use the state provided by redux**
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**So we are going to wrap the index.js with some code**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+First of all we are going to configure a store, this can be added in different folder but in this project i have added it in the **index.js** file.
+First we need to import configureStore which as the name suggest will helps us to configure our store then we will wrap our entire app with **Provider** which is given to us by redux. After we do this we need to tell the Provider what is the name of our store, in our case the store name is **store**. After we provide the store name we will move on to making slices.
 
-### `npm test`
+## Slices
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+As we can have lots of global state in out application, we don't want things to get messy. We will create different slices for different states that we will be used in our application.
 
-### `npm run build`
+These slices are stored in a folder named as features **this is what the redux doc suggests**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Now we move on to making new slices. We need to import **createSlice** to make a new slice.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+As all the state will have some sort of initial values we will store them in **initalStateValue**. Ofcourse the name can be anything
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Now we make slice by using the **createSlice** that we imported earlier.
 
-### `npm run eject`
+We need a name for our slice , then we tell the slice what their initialState is .
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Now we have the reducers which will actually help us to manipulate the state.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Inside **user.js** we have made a login reducer which has state and action passed as a parameter. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The state gives us access to the current state, action helps us to change the current state.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Inside the login reducer we have changed the state to the payload that the user has sent.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Now we need to export the reducers so that they can be used somewhere else.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Moving back to index.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Now as we have exported the required things we again need to tell the index.js file about the things that we have implemented.
 
-### Analyzing the Bundle Size
+Inside of the configureStore we add the reducers that we have exported.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## Using the reducers in Login.jsx
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+To use the reducers that we have created we need **useDispatch** which is given by the "react-redux" library
 
-### Advanced Configuration
+We also need to import the reducers from the features folder
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Now we assign useDispatch() to a variable and then use it inside our code.
 
-### Deployment
+## Inside Profile.jsx
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+We manipulated the state by using **useDispatch**, Now we will access the state data by using **useSelector**. We can use the values that we get from **useSelector** inside our application.
 
-### `npm run build` fails to minify
+--------------------------------------------------------
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Learned these from PedroTech <a href="https://www.youtube.com/watch?v=k68j9xlbHHk&t=945s&ab_channel=PedroTech"> Youtube Channel</a> 
